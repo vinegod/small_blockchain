@@ -19,6 +19,5 @@ func IntToHex(num int64) []byte {
 
 func MerkleRootHash(block *Block) []byte {
 	hash := sha256.Sum256([]byte(block.txs))
-	hash = sha256.Sum256(hash[:])
 	return hash[:]
 }

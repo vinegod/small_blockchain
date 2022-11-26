@@ -51,7 +51,6 @@ func (pow *ProofOfWork) Run() (int64, []byte) {
 	for nonce < maxNonce {
 		data := pow.prepareData(nonce)
 		hash = sha256.Sum256(data)
-		fmt.Printf("\r%x", hash)
 		hashInt.SetBytes(hash[:])
 
 		if hashInt.Cmp(pow.target) == -1 {
@@ -60,6 +59,7 @@ func (pow *ProofOfWork) Run() (int64, []byte) {
 			nonce++
 		}
 	}
+	fmt.Printf("%x", hash)
 	fmt.Print("\n\n")
 
 	return nonce, hash[:]
