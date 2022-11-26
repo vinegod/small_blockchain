@@ -10,14 +10,14 @@ const (
 	difficultyBits = 4 * 4
 )
 
-type MerkleRoot struct {
+type MerkleNode struct {
 	hash []byte
 }
 
 type BlockHeader struct {
 	version       int32
 	prevBlockHash []byte
-	merkleRoot    *MerkleRoot
+	merkleRoot    *MerkleNode
 	timestamp     int64
 	bits          int
 	nonce         int64
@@ -34,7 +34,7 @@ type Block struct {
 
 func createNewBlock(txs string, height int32, prevHash []byte) *Block {
 	block := &Block{height, 1, nil, 1, txs}
-	mr := &MerkleRoot{MerkleRootHash(block)}
+	mr := &MerkleNode{MerkleRootHash(block)}
 	bh := &BlockHeader{version, prevHash, mr, time.Now().Unix(), difficultyBits, 0, []byte{}}
 	block.blockHeader = bh
 	pow := NewProofOfWork(block)
